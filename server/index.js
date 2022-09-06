@@ -18,6 +18,22 @@ const __dirname = path.resolve();
 // Render static files from client folder
 app.use(express.static('../client'));
 
+app.get('/', (req, res) => {
+  res.json('Hello from Techtonica');
+})
+
+// Hard code the student response
+app.get('/api/students', (req, res) => {
+  const STUDENTS = [
+    { firstname: 'Lisa', lastname: 'Lee' },
+    { firstname: 'Christina', lastname: 'Rodriguez' },
+    { firstname: 'Diana', lastname: 'Olivas' },
+    { firstname: 'Andrea', lastname: 'Sanchez' },
+    { firstname: 'Paola', lastname: 'Trejo' },
+  ]
+  res.json(STUDENTS);
+})
+
 // First fetch request
 app.get('/weather', (req, res) => {
   const city = req.query.cityName;
