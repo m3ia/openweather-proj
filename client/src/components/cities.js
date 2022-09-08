@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 
-const Students = (props) => {
-  const [students, setStudents] = useState([]);
+const Cities = (props) => {
+  const [cities, setCities] = useState([]);
 
   const loadData = () => {
     // Fetch all the items from the backend
-    fetch('http://localhost:8080/api/students')
+    fetch('http://localhost:8080/api/cities')
       .then(res => res.json())
       .then(data => {
         console.log('data', data);
-        setStudents(data);
+        setCities(data);
       })
   }
 
@@ -20,10 +20,10 @@ const Students = (props) => {
     return (
       <div>
         <h1>{props.school}</h1>
-        {students.map((student, index) => {
+        {cities.map((city, index) => {
           return (
             <p key={index}>
-              {student.firstname} {student.lastname}
+              {city.city} {city.city}
             </p>
           )
         })}
@@ -31,5 +31,5 @@ const Students = (props) => {
     )
 }
   
-export default Students;
+export default Cities;
 
