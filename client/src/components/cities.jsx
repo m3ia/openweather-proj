@@ -13,21 +13,26 @@ const Cities = (props) => {
       })
   }
 
+  // Load all cities
   useEffect(() => {
     loadData();
   }, []);
 
     return (
-      <div>
+      <>
         <h1>{props.school}</h1>
         {cities.map((city, index) => {
           return (
-            <p key={index}>
-              {city.city} {city.city}
-            </p>
+            <div
+              key={index}
+              className="weatherMenuItem"
+              onClick={()=> console.log('hi', city.lat)}
+            >
+              {city.city}
+            </div>
           )
         })}
-      </div>
+      </>
     )
 }
   

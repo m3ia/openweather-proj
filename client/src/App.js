@@ -4,11 +4,9 @@ import Cities from './components/cities'
 function App() {
   return (
     <div className="App">
-      <h1>Hiii</h1>
-      <div>
-        <Cities school={"Hackbright"} />
-        <Cities school={"Techtonica"} />
-
+      <h1>Cities</h1>
+      <div className="MenuContainer">
+        <Cities />
       </div>
     </div>
   );
