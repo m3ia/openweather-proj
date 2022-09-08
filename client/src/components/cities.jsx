@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
 
-const Cities = ({setSelectedCity, setResult}) => {
+const Cities = ({setSelectedCity, setWeather}) => {
   const [cities, setCities] = useState([]);
   
   const clickCity = async (cityName) => {
-    setSelectedCity(cityName);
     const params = new URLSearchParams({ cityName });
     const res = await fetch(`http://localhost:8080/weather?${params}`);
     const resJson = await res.json();
-    setResult(resJson.data.weather[0].description);
+    setWeather(resJson.data.weather[0].description);
     console.log('resjson', resJson);
     console.log('description', resJson.data.weather[0].description);
-    // setSelectedCity('');
+    setSelectedCity(cityName);
   }
 
   const loadData = () => {

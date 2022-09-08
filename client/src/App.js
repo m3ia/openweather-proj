@@ -4,7 +4,7 @@ import Cities from './components/cities'
 
 function App() {
   const [selectedCity, setSelectedCity] = useState('');
-  const [result, setResult] = useState(null);
+  const [weather, setWeather] = useState(null);
 
   return (
     <div className="App">
@@ -13,12 +13,12 @@ function App() {
         (`Currently selected city: ${selectedCity}`)
         : (`Click on a city`)}
       </h2>
-      <p>{result ?
-        (`${result}`)
+      <p>{weather ?
+        (`${weather}`)
         : ('')
       }</p>
       <div className="MenuContainer">
-        <Cities setSelectedCity={setSelectedCity} setResult={setResult} />
+        <Cities setSelectedCity={setSelectedCity} setWeather={setWeather} />
       </div>
     </div>
   );

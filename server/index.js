@@ -24,7 +24,7 @@ const CITIES = [
   { cityName: 'Oakland, CA', lat: '37.80', lon: '-122.2712' },
   { cityName: 'Vancouver, BC', lat: '49.24', lon: '-123.11' },
   { cityName: 'Juneau, AK', lat: '58.30', lon: '-134.43' },
-  { cityName: 'Quezon City, PI', lat: '14.67', lon: '121.04' },
+  { cityName: 'Quezon City, PI', lat: '14.676208', lon: '121.043861' },
   { cityName: 'Paris, FR', lat: '48.86', lon: '2.34' },
   { cityName: 'Brooklyn, CA', lat: '40.67', lon: '-73.94' },
   { cityName: 'Dubai, UAE', lat: '25.20', lon: '55.27' },
