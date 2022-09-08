@@ -21,14 +21,14 @@ app.get('/', (req, res) => {
 
 
 const CITIES = [
-  { city: 'Oakland, CA', lat: '37.80', lon: '-122.2712' },
-  { city: 'Vancouver, BC', lat: '49.24', lon: '-123.11' },
-  { city: 'Juneau, AK', lat: '58.30', lon: '-134.43' },
-  { city: 'Quezon City, PI', lat: '14.67', lon: '121.04' },
-  { city: 'Paris, FR', lat: '48.86', lon: '2.34' },
-  { city: 'Brooklyn, CA', lat: '40.67', lon: '-73.94' },
-  { city: 'Dubai, UAE', lat: '25.20', lon: '55.27' },
-  { city: 'Damascus, SY', lat: '33.51', lon: '36.27' },
+  { cityName: 'Oakland, CA', lat: '37.80', lon: '-122.2712' },
+  { cityName: 'Vancouver, BC', lat: '49.24', lon: '-123.11' },
+  { cityName: 'Juneau, AK', lat: '58.30', lon: '-134.43' },
+  { cityName: 'Quezon City, PI', lat: '14.67', lon: '121.04' },
+  { cityName: 'Paris, FR', lat: '48.86', lon: '2.34' },
+  { cityName: 'Brooklyn, CA', lat: '40.67', lon: '-73.94' },
+  { cityName: 'Dubai, UAE', lat: '25.20', lon: '55.27' },
+  { cityName: 'Damascus, SY', lat: '33.51', lon: '36.27' },
 
 ]
 // Hard code the cities response
@@ -38,13 +38,19 @@ app.get('/api/cities', (req, res) => {
 
 const API_KEY = process.env.OPENWEATHER_API_KEY;
 // First fetch request
-app.get('/weather', (req, res) => {
-  // const city = req.query.cityName;
-  const city = CITIES[0].city;
+app.get(`/weather`, (req, res) => {
+  const city = req.query.cityName;
+  
+  const selectedCity = CITIES.filter(c => c.cityName === city)[0];
+  const lat = selectedCity.lat;
+  const lon = selectedCity.lon;
+
+  console.log('lat', lat);
+  // const city = CITIES[0].city;
   const apiKey = API_KEY;
   const params = new URLSearchParams({
-    // q: req.query.cityName,
-    q: city,
+    lat: lat,
+    lon: lon,
     appid: apiKey,
     units: 'imperial',
   });

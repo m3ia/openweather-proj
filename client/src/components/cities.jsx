@@ -1,7 +1,18 @@
 import { useState, useEffect } from 'react';
 
-const Cities = (props) => {
+const Cities = ({setSelectedCity, setResult}) => {
   const [cities, setCities] = useState([]);
+  
+  const clickCity = async (cityName) => {
+    setSelectedCity(cityName);
+    const params = new URLSearchParams({ cityName });
+    const res = await fetch(`http://localhost:8080/weather?${params}`);
+    const resJson = await res.json();
+    setResult(resJson.data.weather[0].description);
+    console.log('resjson', resJson);
+    console.log('description', resJson.data.weather[0].description);
+    // setSelectedCity('');
+  }
 
   const loadData = () => {
     // Fetch all the items from the backend
@@ -20,15 +31,14 @@ const Cities = (props) => {
 
     return (
       <>
-        <h1>{props.school}</h1>
         {cities.map((city, index) => {
           return (
             <div
               key={index}
               className="weatherMenuItem"
-              onClick={()=> console.log('hi', city.lat)}
+              onClick={()=> clickCity(city.cityName)}
             >
-              {city.city}
+              {city.cityName}
             </div>
           )
         })}
