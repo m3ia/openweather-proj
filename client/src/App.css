@@ -11,12 +11,20 @@
   /* align-content: center; */
 }
 .weatherMenuItem {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  /* align-items: center; */
   height: 20px;
   padding: 2rem;
   border: 2px solid black;
   width: 50%;
   text-align: left;
   color: black;
+}
+
+.icon {
+  display: inline;
 }
 
 /* .App-logo {

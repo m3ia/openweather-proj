@@ -39,7 +39,7 @@ const API_KEY = process.env.OPENWEATHER_API_KEY;
 // First fetch request
 app.get(`/weather`, (req, res) => {
   const city = req.query.cityName;
-  
+  console.log('city', city);
   const selectedCity = CITIES.filter(c => c.cityName === city)[0];
   const lat = selectedCity.lat;
   const lon = selectedCity.lon;

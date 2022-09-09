@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const Cities = ({setSelectedCity, setWeather, weather}) => {
-  const [cities, setCities] = useState([]);
-  
+const Cities = ({setSelectedCity, setWeather, weather, citiesWeather, setCitiesWeather, cities, setCities, getWeather}) => {  
   const clickCity = async (cityName) => {
     const params = new URLSearchParams({ cityName });
     const res = await fetch(`http://localhost:8080/weather?${params}`);
@@ -22,9 +20,9 @@ const Cities = ({setSelectedCity, setWeather, weather}) => {
     setSelectedCity(cityName);
   }
 
-  const loadData = () => {
+  const loadCities = async () => {
     // Fetch all the items from the backend
-    fetch('http://localhost:8080/api/cities')
+    await fetch('http://localhost:8080/api/cities')
       .then(res => res.json())
       .then(data => {
         console.log('data', data);
@@ -32,10 +30,57 @@ const Cities = ({setSelectedCity, setWeather, weather}) => {
       })
   }
 
+  // const getCitiesWeather = () => {
+  //   cities.forEach(async city => {
+  //     const res = await fetch(`http://localhost:8080/weather?${city.cityName}`);
+  //     const resJson = await res.json();
+  //     const weather = {
+  //       main: resJson.data.weather[0].main,
+  //       temp: resJson.data.main.temp,
+  //       humidity: resJson.data.main.humidity, 
+  //       windSpeed: resJson.data.wind.speed,
+  //       icon: `http://openweathermap.org/img/wn/${resJson.data.weather[0].icon}@2x.png`
+  //     }
+  //     setCitiesWeather({ ...citiesWeather, [city.cityName]: weather });
+  //   }) 
+  //   console.log('citiesweather: ', citiesWeather);
+  // }
+
   // Load all cities
   useEffect(() => {
-    loadData();
+    loadCities();
   }, []);
+
+  useEffect(() => {
+    // getCitiesWeather();
+    if (cities.length === 0) {
+      return;
+    }
+    console.log('test', cities[0].cityName);
+
+    let weatherByCity = {};
+    if (Object.keys(citiesWeather).length > 0) {
+      return;
+    }
+    const loadWeather = async () => {
+      for (let city of cities) {
+        const res = await fetch(`http://localhost:8080/weather?cityName=${city.cityName}`);
+        const resJson = await res.json();
+        const weather = {
+          main: resJson.data.weather[0].main,
+          temp: resJson.data.main.temp,
+          humidity: resJson.data.main.humidity, 
+          windSpeed: resJson.data.wind.speed,
+          icon: `http://openweathermap.org/img/wn/${resJson.data.weather[0].icon}@2x.png`
+        }
+        weatherByCity[city.cityName] = weather;
+      }
+      setCitiesWeather({ ...citiesWeather, ...weatherByCity });
+    }
+    loadWeather();
+    console.log('citiesweather: ', citiesWeather);
+
+  }, [cities, citiesWeather]);
 
     return (
       <>
@@ -44,9 +89,14 @@ const Cities = ({setSelectedCity, setWeather, weather}) => {
             <div
               key={index}
               className="weatherMenuItem"
-              onClick={()=> clickCity(city.cityName)}
+              onClick={()=> getWeather(city.cityName)}
             >
-              {city.cityName} <i className="fas">&#xf0c2;</i>
+              {city.cityName}
+              {citiesWeather.length > 0 ?
+                <span className="icon"><img src={citiesWeather[city.cityName].icon} alt="weather icon" height="50" /></span>
+                :
+                null
+              }
             </div>
           )
         })}
