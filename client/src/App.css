@@ -12,8 +12,7 @@
 }
 .weatherMenuItem {
   height: 20px;
-  padding: 1rem;
-  margin: 1rem;
+  padding: 2rem;
   border: 2px solid black;
   width: 50%;
   text-align: left;

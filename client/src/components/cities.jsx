@@ -1,15 +1,24 @@
 import { useState, useEffect } from 'react';
 
-const Cities = ({setSelectedCity, setWeather}) => {
+const Cities = ({setSelectedCity, setWeather, weather}) => {
   const [cities, setCities] = useState([]);
   
   const clickCity = async (cityName) => {
     const params = new URLSearchParams({ cityName });
     const res = await fetch(`http://localhost:8080/weather?${params}`);
     const resJson = await res.json();
-    setWeather(resJson.data.weather[0].description);
+    setWeather(x =>
+    ({
+      ...x,
+      main: resJson.data.weather[0].main,
+      temp: resJson.data.main.temp,
+      humidity: resJson.data.main.humidity, 
+      windSpeed: resJson.data.wind.speed,
+      icon: resJson.data.weather[0].icon
+    }));
     console.log('resjson', resJson);
     console.log('description', resJson.data.weather[0].description);
+    console.log('weather: ', weather)
     setSelectedCity(cityName);
   }
 
@@ -37,7 +46,7 @@ const Cities = ({setSelectedCity, setWeather}) => {
               className="weatherMenuItem"
               onClick={()=> clickCity(city.cityName)}
             >
-              {city.cityName}
+              {city.cityName} <i className="fas">&#xf0c2;</i>
             </div>
           )
         })}
