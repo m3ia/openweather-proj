@@ -11,6 +11,7 @@ function App() {
     windSpeed: "",
     icon: "",
   });
+  const iconUrl = `http://openweathermap.org/img/wn/${weather.icon}@2x.png`;
 
   return (
     <div className="App">
@@ -24,9 +25,9 @@ function App() {
         <div>
           <p>Current weather: {weather.main}</p>
           <p>Current temp: {weather.temp}F</p>
-          <p>Current humidity: {weather.humidity}F</p>
-          <p>Current wind speed: {weather.windSpeed}F</p>
-          <p>Current icon: {weather.icon}F</p>
+          <p>Current humidity: {weather.humidity}</p>
+          <p>Current wind speed: {weather.windSpeed}</p>
+          <p>Current icon: <img src={iconUrl} alt="weather icon" /> </p>
         </div>
       )}
       <div className="MenuContainer">
