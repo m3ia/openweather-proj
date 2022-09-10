@@ -4,10 +4,8 @@ import Cities from "./components/cities";
 
 function App() {
   const [selectedCity, setSelectedCity] = useState("");
-  const [citySelected, setCitySelected] = useState(false);
   const [citiesWeather, setCitiesWeather] = useState({});
   const [cities, setCities] = useState([]);
-  const [weather, setWeather] = useState({});
   const [selectedWeather, setSelectedWeather] = useState({
     main: "",
     temp: "",
@@ -18,7 +16,6 @@ function App() {
 
   const getWeather = (cityName) => {
     setSelectedCity(cityName);
-    setCitySelected(true);
     setSelectedWeather({
       main: citiesWeather[cityName].main,
       temp: citiesWeather[cityName].temp,
@@ -32,29 +29,29 @@ function App() {
       <h1>Cities</h1>
       <h2>
         {selectedCity
-          ? `Currently selected city: ${selectedCity}`
+          ? `Weather for city: ${selectedCity}`
           : `Click on a city`}
       </h2>
-      {selectedCity && (
+      {selectedCity ? (
         <div>
-          <p>Current weather: {selectedWeather.main}</p>
+          <p>Current weather: {selectedWeather.main}<span className="icon"><img src={selectedWeather.icon} alt="weather icon" width="50" height="50" />
+          </span></p>
           <p>Current temp: {selectedWeather.temp}F</p>
           <p>Current humidity: {selectedWeather.humidity}</p>
           <p>Current wind speed: {selectedWeather.windSpeed}</p>
+          <button onClick={() => setSelectedCity('')}>Back</button>
         </div>
-      )}
-      <div className="MenuContainer">
+      ) : 
+        <div className="MenuContainer">
         <Cities
-          setSelectedCity={setSelectedCity}
-          weather={weather}
           citiesWeather={citiesWeather}
           setCitiesWeather={setCitiesWeather}
           cities={cities}
           setCities={setCities}
-          setWeather={setWeather}
           getWeather={getWeather}
         />
       </div>
+      }
     </div>
   );
 }

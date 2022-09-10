@@ -25,7 +25,7 @@ const CITIES = [
   { cityName: 'Juneau, AK', lat: '58.30', lon: '-134.43' },
   { cityName: 'Quezon City, PI', lat: '14.676208', lon: '121.043861' },
   { cityName: 'Paris, FR', lat: '48.86', lon: '2.34' },
-  { cityName: 'Brooklyn, CA', lat: '40.67', lon: '-73.94' },
+  { cityName: 'Brooklyn, NY', lat: '40.67', lon: '-73.94' },
   { cityName: 'Dubai, UAE', lat: '25.20', lon: '55.27' },
   { cityName: 'Damascus, SY', lat: '33.51', lon: '36.27' },
 
@@ -36,7 +36,7 @@ app.get('/api/cities', (req, res) => {
 })
 
 const API_KEY = process.env.OPENWEATHER_API_KEY;
-// First fetch request
+// Fetch weather for 1 city
 app.get(`/weather`, (req, res) => {
   const city = req.query.cityName;
   console.log('city', city);

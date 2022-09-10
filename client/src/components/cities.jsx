@@ -1,24 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const Cities = ({setSelectedCity, setWeather, weather, citiesWeather, setCitiesWeather, cities, setCities, getWeather}) => {  
-  const clickCity = async (cityName) => {
-    const params = new URLSearchParams({ cityName });
-    const res = await fetch(`http://localhost:8080/weather?${params}`);
-    const resJson = await res.json();
-    setWeather(x =>
-    ({
-      ...x,
-      main: resJson.data.weather[0].main,
-      temp: resJson.data.main.temp,
-      humidity: resJson.data.main.humidity, 
-      windSpeed: resJson.data.wind.speed,
-      icon: resJson.data.weather[0].icon
-    }));
-    console.log('resjson', resJson);
-    console.log('description', resJson.data.weather[0].description);
-    console.log('weather: ', weather)
-    setSelectedCity(cityName);
-  }
+const Cities = ({citiesWeather, setCitiesWeather, cities, setCities, getWeather}) => {  
 
   const loadCities = async () => {
     // Fetch all the items from the backend
@@ -29,22 +11,6 @@ const Cities = ({setSelectedCity, setWeather, weather, citiesWeather, setCitiesW
         setCities(data);
       })
   }
-
-  // const getCitiesWeather = () => {
-  //   cities.forEach(async city => {
-  //     const res = await fetch(`http://localhost:8080/weather?${city.cityName}`);
-  //     const resJson = await res.json();
-  //     const weather = {
-  //       main: resJson.data.weather[0].main,
-  //       temp: resJson.data.main.temp,
-  //       humidity: resJson.data.main.humidity, 
-  //       windSpeed: resJson.data.wind.speed,
-  //       icon: `http://openweathermap.org/img/wn/${resJson.data.weather[0].icon}@2x.png`
-  //     }
-  //     setCitiesWeather({ ...citiesWeather, [city.cityName]: weather });
-  //   }) 
-  //   console.log('citiesweather: ', citiesWeather);
-  // }
 
   // Load all cities
   useEffect(() => {
@@ -85,18 +51,18 @@ const Cities = ({setSelectedCity, setWeather, weather, citiesWeather, setCitiesW
     return (
       <>
         {cities.map((city, index) => {
+          console.log('city', city.cityName);
+          console.log('citys weather', citiesWeather?.[city.cityName]?.icon);
           return (
             <div
               key={index}
               className="weatherMenuItem"
               onClick={()=> getWeather(city.cityName)}
             >
-              {city.cityName}
-              {citiesWeather.length > 0 ?
-                <span className="icon"><img src={citiesWeather[city.cityName].icon} alt="weather icon" height="50" /></span>
-                :
-                null
-              }
+              <h2>{city.cityName}</h2>
+              
+              <span className="icon"><img src={citiesWeather?.[city.cityName]?.icon} alt="weather icon" width="50" height="50" /></span>
+              
             </div>
           )
         })}
