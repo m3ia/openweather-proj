@@ -95,42 +95,35 @@ app.get(`/api/searchedWeather`, (req, res) => {
 // Fetch weather for all cities
 app.get(`/api/allWeather`, async (req, res) => {
   let weatherByCity = {};
-
-  for (let city of CITIES) {
+  
+  let weatherResponses = await Promise.all(CITIES.map(city => {
     const params = new URLSearchParams({
-    lat: city.lat,
-    lon: city.lon,
-    appid: API_KEY,
-    units: 'imperial',
+      lat: city.lat,
+      lon: city.lon,
+      appid: API_KEY,
+      units: 'imperial',
     });
-    
     const url = `https://api.openweathermap.org/data/2.5/weather?${params}`;
-    // const url = `https://api.openweathermap.org/data/2.5/weather?lat=37.80&lon=-122.2712&appid=f2bcbe8097b61fc4b0de3475526aa36a`;
-
-    await fetch(url)
-    .then((res) => res.json())
-    .then((allWeatherData) => {
-      const weatherData = {
-        main: allWeatherData.weather[0].main,
-        temp: allWeatherData.main.temp,
-        humidity: allWeatherData.main.humidity,
-        windSpeed: allWeatherData.wind.speed,
-        icon: `http://openweathermap.org/img/wn/${allWeatherData.weather[0].icon}@2x.png`
-      }
-      weatherByCity = { ...weatherByCity, [city.cityName]: weatherData };
-    })
+    return fetch(url);
+  }))
     .catch((err) => {
       console.log(err);
     });
-    // fetch(url)
-    // .then((res) => res.json())
-    // .then((weatherData) => {
-    //   res.send(weatherData);
-    // })
-    // // .then((res) => res.send({ weatherByCity }))
-    // .catch((err) => {
-    //   console.log(err);
-    // });
+
+
+  for (let i = 0; i < CITIES.length; i++) {
+    const res = weatherResponses[i];
+    const cityName = CITIES[i].cityName;
+
+    const resJson = await res.json();
+    const weatherData = {
+      main: resJson.weather[0].main,
+      temp: resJson.main.temp,
+      humidity: resJson.main.humidity,
+      windSpeed: resJson.wind.speed,
+      icon: `http://openweathermap.org/img/wn/${resJson.weather[0].icon}@2x.png`
+    }
+    weatherByCity = { ...weatherByCity, [cityName]: weatherData };
   }
 
   console.log('weatherByCity', weatherByCity);

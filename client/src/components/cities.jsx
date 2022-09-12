@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-const Cities = ({citiesWeather, setCitiesWeather, cities, setCities, getWeather}) => {  
+const Cities = ({ citiesWeather, setCitiesWeather, cities, setCities, getWeather }) => {  
+  const [isLoading, setIsLoading] = useState(true);
 
   // Load all cities
   useEffect(() => {
@@ -31,16 +32,18 @@ const Cities = ({citiesWeather, setCitiesWeather, cities, setCities, getWeather}
         //   icon: `http://openweathermap.org/img/wn/${resJson.data.weather[0].icon}@2x.png`
         // }
         // weatherByCity[city.cityName] = weather;
-      console.log('resJson: ', resJson);
+      setIsLoading(false);
     }
     loadWeather();
   }, [setCitiesWeather]);
 
     return (
       <>
-        {cities.map((city, index) => {
-          // console.log('city', city.cityName);
-          // console.log('citys weather', citiesWeather?.[city.cityName]?.icon);
+        {
+          isLoading ? 
+            (<h3>One sec...</h3>)
+            : (
+              cities.map((city, index) => {
           return (
             <div
               key={index}
@@ -53,7 +56,10 @@ const Cities = ({citiesWeather, setCitiesWeather, cities, setCities, getWeather}
               
             </div>
           )
-        })}
+        })
+            )
+
+        }
       </>
     )
 }
