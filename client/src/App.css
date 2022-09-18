@@ -10,7 +10,6 @@
   justify-content: center;
   width: 100%;
   margin-top: 2rem;
-  /* align-content: center; */
 }
 .weatherMenuItem {
   display: flex;
@@ -19,10 +18,21 @@
   align-items: center;
   height: 20px;
   padding: 2rem;
-  border: 2px solid black;
   width: 50%;
   text-align: left;
   color: black;
+  background: 
+    linear-gradient(to right, #ffffff, #cacaca, #979797, #676767, #3b3b3b, #3b3b3b, #3b3b3b, #3b3b3b, #676767, #979797, #cacaca, #ffffff)
+    left
+    bottom
+    no-repeat;
+  background-size: 100% 2px;
+  border-radius: 15px;
+}
+
+.weatherMenuItem:hover{
+  cursor: pointer;
+  background-color:rgb(204, 204, 204);
 }
 
 .icon {
@@ -33,38 +43,3 @@
 .spinner-border {
   align-self: center;
 }
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
- */

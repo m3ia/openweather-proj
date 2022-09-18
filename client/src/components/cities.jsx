@@ -22,16 +22,6 @@ const Cities = ({ citiesWeather, setCitiesWeather, cities, setCities, getWeather
       const res = await fetch(`http://localhost:8080/api/allWeather`);
       const resJson = await res.json();
       setCitiesWeather({...resJson.weatherByCity});
-        // const res = await fetch(`http://localhost:8080/api/allWeather`);
-        // const resJson = await res.json();
-        // const weather = {
-        //   main: resJson[city.cityName].weather[0].main,
-        //   temp: resJson.data.main.temp,
-        //   humidity: resJson.data.main.humidity,
-        //   windSpeed: resJson.data.wind.speed,
-        //   icon: `http://openweathermap.org/img/wn/${resJson.data.weather[0].icon}@2x.png`
-        // }
-        // weatherByCity[city.cityName] = weather;
       setIsLoading(false);
     }
     loadWeather();
@@ -55,7 +45,7 @@ const Cities = ({ citiesWeather, setCitiesWeather, cities, setCities, getWeather
               <h2>{city.cityName}</h2>
               
               <span className="icon"><img src={citiesWeather?.[city.cityName]?.icon} alt="weather icon" width="50" height="50" /></span>
-              
+              <div className="solid-border"></div>
             </div>
           )
         })
