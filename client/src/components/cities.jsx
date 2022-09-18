@@ -41,8 +41,8 @@ const Cities = ({ citiesWeather, setCitiesWeather, cities, setCities, getWeather
       <>
         {
           isLoading ? 
-            (<div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
+            (<div className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
             </div>)
             : (
               cities.map((city, index) => {

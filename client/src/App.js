@@ -13,6 +13,7 @@ function App() {
     windSpeed: "",
     icon: "",
   });
+  
   const setCitiesWeather = useCallback(_setCitiesWeather, [_setCitiesWeather]);
 
   const getWeather = (cityName) => {
