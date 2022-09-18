@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
 }
 
@@ -42,4 +45,13 @@
 /* spinner */
 .spinner-border {
   align-self: center;
+}
+
+/* Selected City Div */
+.selected-city-div {
+  background-color: rgb(118, 198, 255);
+  border-radius: 15px;
+  /* align-self: center; */
+  min-width: 500px;
+  padding: 10px;
 }

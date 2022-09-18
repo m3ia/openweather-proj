@@ -35,7 +35,7 @@ function App() {
           : `Click on a city`}
       </h2>
       {selectedCity ? (
-        <div>
+        <div className='selected-city-div'>
           <p>Current weather: {selectedWeather.main}<span className="icon"><img src={selectedWeather.icon} alt="weather icon" width="50" height="50" />
           </span></p>
           <p>Current temp: {selectedWeather.temp}F</p>
